@@ -1,0 +1,25 @@
+{
+  "name": "cloudprojectmarker",
+  "version": "1.0.0",
+  "description": "Automatic marker for Cloud Project Assigment",
+  "main": "app.js",
+  "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "dependencies": {},
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "mocha tests/unit/"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.62",
+    "@types/node": "^14.11.2",
+    "aws-sdk": "^2.758.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3",
+    "mochawesome": "^6.1.1"
+  }
+}
