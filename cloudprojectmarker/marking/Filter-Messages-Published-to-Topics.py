@@ -28,5 +28,9 @@ snsTopic.add_subscription(car_sub,life_sub)
 # Publish message to topic//
 FirstPublish = snsTopic.publish(self, "InsuranceQuoteRequestd#1", subject="Insurance Quote Request #1")
 
-Message1 = {"type": sns.SubscriptionFilter(conditions=[{"2017 Volvo S60, Montreal"}], type=str)}
-Message2 = {"type": sns.SubscriptionFilter(conditions=[{"Townhouse, 1500 sq ft, Toronto"}], type=str)}
+Message1 = {"type": sns.SubscriptionFilter(conditions=[{"2017 Volvo S60, Montreal"}])}
+Message2 = {"type": sns.SubscriptionFilter(conditions=[{"Townhouse, 1500 sq ft, Toronto"}])}
+
+Message_Attributes = {"Type": "String", "Name": "insurance_type", "Value": "home"}
+
+
