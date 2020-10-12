@@ -12,7 +12,7 @@ from aws_cdk import (
 
 class CreateSNSSQS(core.Stack):
      # Create an Amazon SNS Topic: "Insurance-Quote-Reqests" //
-    def SNSTopic(self, app: core.App, id: str, **kwargs) -> None:
+    def __init__(self, app: core.App, id: str, **kwargs) -> None:
         super().__init__(app, id)
        
         MyTopic = sns.Topic(
@@ -20,9 +20,7 @@ class CreateSNSSQS(core.Stack):
             topic_name="ANS-Insurance-Quote-Reqests"
             )
            
-    # Create 3 Amazon SQS Queues: "All-Quotes", "Life-Insurance-Quotes", "Vehicle-Insurance-Quotes" // 
-    def SQSQueue(self, app: core.App, id: str, **kwargs) -> None:
-        super().__init__(app, id)
+        # Create 3 Amazon SQS Queues: "All-Quotes", "Life-Insurance-Quotes", "Vehicle-Insurance-Quotes" // 
         # Create an queues with name "All-Quotes" //
         AllQueue = sqs.Queue(
             self, "ANS-AllQueue", 
@@ -39,10 +37,7 @@ class CreateSNSSQS(core.Stack):
             queue_name="ANS-Vehicle-Insurance-Quotes"
             )
     
-    # Subscribe 3 queues to the topic "Insurance-Quote-Reqests" //
-    def Subscribe(self, MyTopic, AllQueue, LifeQueue, VehicleQueue, app: core.App, id: str, **kwargs) -> None:
-        super().__init__(app, id)
-        
+        # Subscribe 3 queues to the topic "Insurance-Quote-Reqests" //
         MyTopic.add_subscription(subs.SqsSubscription(AllQueue))
         MyTopic.add_subscription(subs.SqsSubscription(LifeQueue))
         MyTopic.add_subscription(subs.SqsSubscription(VehicleQueue))
