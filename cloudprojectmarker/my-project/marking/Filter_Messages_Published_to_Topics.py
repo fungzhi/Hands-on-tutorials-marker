@@ -6,50 +6,62 @@ from aws_cdk import (
     aws_sqs as sqs,
     aws_sns as sns,
     aws_sns_subscriptions as subs,
-    cdk
+    core
     )
 
-from hello_construct import HelloConstruct
 
-class CreateSNS_SQS(cdk.Stack):
-    def __init__(self, app: cdk.App, id: str, **kwargs) -> None:
-        super().__init__(app, id, **kwargs)
-        
-        # Create an Amazon SNS Topic: "Insurance-Quote-Reqests" //
+class CreateSNSSQS(core.Stack):
+     # Create an Amazon SNS Topic: "Insurance-Quote-Reqests" //
+    def SNSTopic(self, app: core.App, id: str, **kwargs) -> None:
+        super().__init__(app, id)
+       
         MyTopic = sns.Topic(
-            self, "MyTopic", 
-            display_name="Insurance-Quote-Reqests"
+            self, "ANS-Insurance-Quote-Reqests", 
+            topic_name="ANS-Insurance-Quote-Reqests"
             )
-        
-        # Create an Amazon SQS Queues: "All-Quotes" //
-        AllQueue = sqs.create_queue(
-            self, "AllQueue", 
-            queue_name="All-Quotes"
+           
+    # Create 3 Amazon SQS Queues: "All-Quotes", "Life-Insurance-Quotes", "Vehicle-Insurance-Quotes" // 
+    def SQSQueue(self, app: core.App, id: str, **kwargs) -> None:
+        super().__init__(app, id)
+        # Create an queues with name "All-Quotes" //
+        AllQueue = sqs.Queue(
+            self, "ANS-AllQueue", 
+            queue_name="ANS-All-Quotes"
             )
-        # Create an Amazon SQS Queues: "Life-Insurance-Quotes" //
+        # Create an queues with name "Life-Insurance-Quotes" //
         LifeQueue = sqs.Queue(
-            self, "LifeQueue", 
-            queue_name="Life-Insurance-Quotes"
+            self, "ANS-LifeQueue", 
+            queue_name="ANS-Life-Insurance-Quotes"
             )
-        # Create an Amazon SQS Queues: "Vehicle-Insurance-Quotes" //
+        # Create an queues with name "Vehicle-Insurance-Quotes" //
         VehicleQueue = sqs.Queue(
-            self, "VehicleQueue", 
-            queue_name="Vehicle-Insurance-Quotes"
+            self, "ANS-VehicleQueue", 
+            queue_name="ANS-Vehicle-Insurance-Quotes"
             )
+    
+    # Subscribe 3 queues to the topic "Insurance-Quote-Reqests" //
+    def Subscribe(self, MyTopic, AllQueue, LifeQueue, VehicleQueue, app: core.App, id: str, **kwargs) -> None:
+        super().__init__(app, id)
         
-        # Subscribe 3 queues to the topic "Insurance-Quote-Reqests" //
-        MyTopic.subscribe_queue(AllQueue)
-        MyTopic.subscribe_queue(LifeQueue)
-        MyTopic.subscribe_queue(VehicleQueue)
+        MyTopic.add_subscription(subs.SqsSubscription(AllQueue))
+        MyTopic.add_subscription(subs.SqsSubscription(LifeQueue))
+        MyTopic.add_subscription(subs.SqsSubscription(VehicleQueue))
         
+app = core.App()
+CreateSNSSQS(app, "CreateSNSSQS", env={'region': 'us-east-1'})
+app.synth
+
+
+
+
 
 # Edit subscription filter policy of "Life-Insurance-Quotes" and "Vehicle-Insurance-Quotes" //
-LifePolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["life"])}
-VehiclePolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["car", "boat"])}
 
-Life_Sub = subs.SqsSubscription(LifeQueue, filter_policy = LifePolicy)
-Vehicle_Sub = subs.SqsSubscription(VehicleQueue, filter_policy = VehiclePolicy)
+#LifePolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["life"])}
+#VehiclePolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["car", "boat"])}
 
-MyTopic.add_subscription(Life_Sub, Vehicle_Sub)
+#Life_Sub = subs.SqsSubscription(LifeQueue, filter_policy = LifePolicy)
+#Vehicle_Sub = subs.SqsSubscription(VehicleQueue, filter_policy = VehiclePolicy)
 
-#
+#MyTopic.add_subscription(Life_Sub, Vehicle_Sub)
+
