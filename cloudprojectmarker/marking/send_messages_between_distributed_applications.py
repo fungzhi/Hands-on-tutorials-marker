@@ -1,6 +1,5 @@
 # Hands-on Lab: Send Messages Between Distributed Applications
 # Tutorial Link: https://aws.amazon.com/getting-started/hands-on/send-messages-distributed-applications/
-
 from aws_cdk.core import App, Construct
 import aws_cdk.aws_sqs as sqs
 from botocore.exceptions import OrdersError
@@ -54,7 +53,7 @@ class SendMessages(core.Stack):
         else:
             return response
 
-
+"""
 class DeleteMessages(core.Stack):
     # Retrieve and Delete a Message
     def receive_messages(queue, max_number, wait_time):
@@ -92,3 +91,4 @@ class DeleteSQS(core.Stack):
         except OrdersError as error:
             logger.exception("Couldn't delete queue: %s", queue.queue_name)
             raise error
+"""

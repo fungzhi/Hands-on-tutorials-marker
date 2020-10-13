@@ -136,7 +136,7 @@ class QueryData(core.Stack):
         for music in musics:
             print(music['Artist'], ":", music['SongTitle'])
 
-
+"""
 class DeleteData(core.Stack):
     # Delete an Existing Item
     def delete_music(Artist, SongTitle, dynamodb=None):
@@ -184,3 +184,4 @@ class DeleteTable(core.Stack):
     if __name__ == '__main__':
         delete_music_table()
         print("Music table deleted.")
+"""
