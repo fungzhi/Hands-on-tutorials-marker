@@ -1,5 +1,6 @@
 # Hands-on Lab: Send Messages Between Distributed Applications
 # Tutorial Link: https://aws.amazon.com/getting-started/hands-on/send-messages-distributed-applications/
+
 from aws_cdk.core import App, Construct
 import aws_cdk.aws_sqs as sqs
 from botocore.exceptions import OrdersError

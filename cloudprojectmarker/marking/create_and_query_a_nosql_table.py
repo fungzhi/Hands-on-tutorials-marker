@@ -1,5 +1,6 @@
 # Hands-on Lab: Create and Query a NoSQL Table
 # Tutorial Link: https://aws.amazon.com/getting-started/hands-on/create-nosql-table/
+
 from aws_cdk.core import App, Construct
 import aws_cdk.aws_dynamodb as dynamodb
 from pprint import pprint
@@ -12,7 +13,8 @@ class CreateTable(core.Stack):
     # Create a NoSQL Table
     def create_music_table(dynamodb=None):
         if not dynamodb:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource(
+                'dynamodb', endpoint_url="http://localhost:8000")
 
         table = dynamodb.create_table(
             TableName='Music',
@@ -53,7 +55,8 @@ class InputData(core.Stack):
     # Add Data to the NoSQL Table
     def put_music(Artist, SongTitle, dynamodb=None):
         if not dynamodb:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource(
+                'dynamodb', endpoint_url="http://localhost:8000")
 
         table = dynamodb.Table('Music')
         response = table.put_item(
@@ -71,7 +74,8 @@ class InputData(core.Stack):
 
     def update_music(Artist, SongTitle, dynamodb=None):
         if not dynamodb:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource(
+                'dynamodb', endpoint_url="http://localhost:8000")
 
         table = dynamodb.Table('Music')
 
@@ -97,7 +101,8 @@ class QueryData(core.Stack):
     # Query the NoSQL Table
     def query_music(Artist, dynamodb=None):
         if not dynamodb:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource(
+                'dynamodb', endpoint_url="http://localhost:8000")
 
         table = dynamodb.Table('Music')
         response = table.query(
@@ -121,7 +126,8 @@ class QueryData(core.Stack):
     # query songtitle from S
     def query_song(SongTitle, dynamodb=None):
         if not dynamodb:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource(
+                'dynamodb', endpoint_url="http://localhost:8000")
 
         table = dynamodb.Table('Music')
         response = table.query(
@@ -135,6 +141,7 @@ class QueryData(core.Stack):
         music = query_music(query_song)
         for music in musics:
             print(music['Artist'], ":", music['SongTitle'])
+
 
 """
 class DeleteData(core.Stack):

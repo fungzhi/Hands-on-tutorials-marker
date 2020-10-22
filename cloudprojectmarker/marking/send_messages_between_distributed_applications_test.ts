@@ -1,13 +1,17 @@
+//Hands-on Lab: Send Messages Between Distributed Applications
+//Tutorial Link: https://aws.amazon.com/getting-started/hands-on/send-messages-distributed-applications/
+
 import {expect} from "chai";
 import "mocha";
 import * as AWS from "aws-sdk";
 import { SQS } from "aws-sdk";
+AWS.config.update({region: 'us-east-1'});
 
 describe("SQS", () => {
     const sqs: AWS.SQS = new AWS.SQS();
 
     it("should have 1 SQS queues. ", async () => {
-        const OrdersQueue = await sqs
+        const OrdersQueue = await SQS
             .listQueues({QueueNamePrefix: "Orders"})
             .promise();
         expect(1, "Orders exist.").to.equal(OrdersQueue.QueueUrls!.length);
