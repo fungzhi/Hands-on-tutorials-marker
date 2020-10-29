@@ -3,19 +3,30 @@ from aws_cdk import (aws_s3 as s3, core)
 import time
 import boto3
 
-
 class S3Template(core.Stack):
     def __init__(self, app: core.App, id: str, **kwargs) -> None:
         super().__init__(app, id)
         #create an S3 bucket
         myBucket = s3.Bucket(self,
                              'MyFirstBucket',
-                             bucket_name='create-audio-transcript')
-
+                             bucket_name='create-audio-transcript',
+                             )
 
 app = core.App()
 S3Template(app, "S3Template", env={'region': 'us-east-1'})
 app.synth()
+
+
+
+client = boto3.client('s3')
+client.put_object(Bucket='create-audio-transcript', 
+                    Key='transcribe-sample.mp3')
+s3.upload_file(
+    'transcribe-sample.mp3', 'create-audio-transcript', 'transcribe-sample.mp3',
+    ExtraArgs={'ACL': 'public-read'}
+)
+
+
 
 class Transcriptfile(core.Stack):
     def transcribe_file(job_name, file_uri, transcribe_client):
