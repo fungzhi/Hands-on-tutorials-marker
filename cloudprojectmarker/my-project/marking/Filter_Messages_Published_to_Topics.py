@@ -36,27 +36,21 @@ class CreateSNSSQS(core.Stack):
             self, "ANS-VehicleQueue", 
             queue_name="ANS-Vehicle-Insurance-Quotes"
             )
-    
-        # Subscribe 3 queues to the topic "Insurance-Quote-Reqests" //
-        MyTopic.add_subscription(subs.SqsSubscription(AllQueue))
-        MyTopic.add_subscription(subs.SqsSubscription(LifeQueue))
-        MyTopic.add_subscription(subs.SqsSubscription(VehicleQueue))
         
+        # Edit subscription filter policy of "Life-Insurance-Quotes" and "Vehicle-Insurance-Quotes" //
+        lifepolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["life"])}
+        valuepolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["car", "boat"])}
+
+        life_sub = subs.SqsSubscription(LifeQueue, filter_policy = lifepolicy)
+        vehicle_sub = subs.SqsSubscription(VehicleQueue, filter_policy = valuepolicy)
+        
+        # Subscribe 3 queues and both filter policy to the topic "Insurance-Quote-Reqests" //
+        MyTopic.add_subscription(subs.SqsSubscription(AllQueue))
+        MyTopic.add_subscription(life_sub)
+        MyTopic.add_subscription(vehicle_sub)
+        
+#metricNumberOfMessagesPublished
+
 app = core.App()
 CreateSNSSQS(app, "CreateSNSSQS", env={'region': 'us-east-1'})
 app.synth
-
-
-
-
-
-# Edit subscription filter policy of "Life-Insurance-Quotes" and "Vehicle-Insurance-Quotes" //
-
-#LifePolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["life"])}
-#VehiclePolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["car", "boat"])}
-
-#Life_Sub = subs.SqsSubscription(LifeQueue, filter_policy = LifePolicy)
-#Vehicle_Sub = subs.SqsSubscription(VehicleQueue, filter_policy = VehiclePolicy)
-
-#MyTopic.add_subscription(Life_Sub, Vehicle_Sub)
-
