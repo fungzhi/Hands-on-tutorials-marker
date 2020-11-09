@@ -9,22 +9,17 @@ class S3Template(core.Stack):
         #create an S3 bucket
         myBucket = s3.Bucket(self,
                              'MyFirstBucket',
-                             bucket_name='create-audio-transcript',
+                             bucket_name='create-audio-transcript1',
                              )
 
 app = core.App()
 S3Template(app, "S3Template", env={'region': 'us-east-1'})
 app.synth()
-
-
-
+    
 client = boto3.client('s3')
-client.put_object(Bucket='create-audio-transcript', 
+client.put_object(Bucket='create-audio-transcript1', 
                     Key='transcribe-sample.mp3')
-s3.upload_file(
-    'transcribe-sample.mp3', 'create-audio-transcript', 'transcribe-sample.mp3',
-    ExtraArgs={'ACL': 'public-read'}
-)
+
 
 
 
@@ -56,7 +51,7 @@ class Transcriptfile(core.Stack):
 
     def main():
         transcribe_client = boto3.client('transcribe')
-        file_uri = 's3://create-audio-transcript/transcribe-sample.mp3'
+        file_uri = 's3://create-audio-transcript1/transcribe-sample.mp3'
         transcribe_file('sample-transcription-job', file_uri, transcribe_client)
 
 
