@@ -2,8 +2,12 @@
 # Tutorial Link: https://aws.amazon.com/getting-started/hands-on/send-messages-distributed-applications/
 
 from aws_cdk import (aws_sqs as sqs, core)
-from botocore.exceptions import ClientError
 import boto3
+from botocore.exceptions import ClientError
+import logging
+
+logger = logging.getLogger(__name__)
+ClientError = boto3.exceptions(__name__)
 
 
 class CreateQueue(core.Stack):
@@ -27,7 +31,7 @@ class SendMessages(core.Stack):
                 MessageBody=message_body,
                 MessageAttributes=message_attributes
             )
-        except ClientErrorr as error:
+        except ClientError as error:
             logger.exception("Send message failed: %s", message_body)
             raise error
         else:

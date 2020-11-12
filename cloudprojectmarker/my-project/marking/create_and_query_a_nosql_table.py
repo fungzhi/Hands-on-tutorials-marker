@@ -6,14 +6,20 @@ from pprint import pprint
 import boto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
+import pprint
 
 
 class CreateTable(core.Stack):
+    def __init__(self, app: core.App, id: str, **kwargs) -> None:
+        super().__init__(app, id)
+    
     # Create a NoSQL Table
     def create_music_table(self, dynamodb=None):
         if not dynamodb:
             dynamodb = boto3.resource(
                 'dynamodb', endpoint_url="http://localhost:8000")
+        
+        dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
         table = dynamodb.create_table(
             TableName='Music',
@@ -36,7 +42,6 @@ class CreateTable(core.Stack):
                     'AttributeName': 'SongTitle',
                     'AttributeType': 'S'
                 },
-
             ],
             ProvisionedThroughput={
                 'ReadCapacityUnits': 5,
@@ -44,10 +49,6 @@ class CreateTable(core.Stack):
             }
         )
         return table
-
-    if __name__ == '__main__':
-        music_table = create_music_table()
-        print("Table status:", music_table.table_status)
 
 
 class InputData(core.Stack):
@@ -60,16 +61,12 @@ class InputData(core.Stack):
         table = dynamodb.Table('Music')
         response = table.put_item(
             Item={
-                'Artist': Artist,
-                'SongTitle': SongTitle
+                'Artist': "No One You Know",
+                'SongTitle': "Call Me Today"
             }
         )
         return response
 
-    if __name__ == '__main__':
-        music_resp = put_music("No One You Know", "Call Me Today")
-        print("Put music succeeded:")
-        pprint(music_resp, sort_dicts=False)
 
     def update_music(self, Artist, SongTitle, dynamodb=None):
         if not dynamodb:
@@ -80,8 +77,14 @@ class InputData(core.Stack):
 
         response = table.update_item(
             Key={
-                'Artist': Artist,
-                'SongTitle': SongTitle
+                'Artist':{
+                    "No One You Know", "No One You Know",
+                    "The Acme Band","The Acme Band"
+                },
+                'SongTitle':{
+                    "My Dog Spot", "Somewhere Down The Road",
+                    "Still in Love", "Look Out, World"
+                }
             },
             ReturnValues="UPDATED_NEW"
         )
@@ -93,7 +96,7 @@ class InputData(core.Stack):
             ["No One You Know", "Somewhere Down The Road"],
             ["The Acme Band", ["Still in Love", "Look Out, World"]])
         print("Update music succeeded:")
-        pprint(update_response, sort_dicts=False)
+        pprint.pprint(update_response)
 
 
 class QueryData(core.Stack):
@@ -112,18 +115,18 @@ class QueryData(core.Stack):
     if __name__ == '__main__':
         query_artist = "No One You Know"
         print(f"Music from {query_artist}")
-        music = query_music(query_artist)
-        for music in musics:
+        music = query_music(query_artist, quit)
+        for music in music:
             print(music['Artist'], ":", music['SongTitle'])
     elif __name__ == '__main__':
         query_artist = "The Acme Band"
         print(f"Music from {query_artist}")
-        music = query_music(query_artist)
-        for music in musics:
+        music = query_music(query_artist, quit)
+        for music in music:
             print(music['Artist'], ":", music['SongTitle'])
 
     # query songtitle from S
-    def query_song(SongTitle, dynamodb=None):
+    def query_song(self, SongTitle, dynamodb=None):
         if not dynamodb:
             dynamodb = boto3.resource(
                 'dynamodb', endpoint_url="http://localhost:8000")
@@ -137,8 +140,8 @@ class QueryData(core.Stack):
     if __name__ == '__main__':
         query_song = "%S%"
         print(f"Music from {query_song}")
-        music = query_music(query_song)
-        for music in musics:
+        music = query_music(quit, query_song)
+        for music in music:
             print(music['Artist'], ":", music['SongTitle'])
 
 
