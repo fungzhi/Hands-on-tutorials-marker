@@ -8,6 +8,7 @@ from aws_cdk import (
     aws_sns_subscriptions as subs,
     core
     )
+import boto3
 
 
 class CreateSNSSQS(core.Stack):
@@ -41,15 +42,39 @@ class CreateSNSSQS(core.Stack):
         lifepolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["life"])}
         valuepolicy = {"insurance_type": sns.SubscriptionFilter(conditions=["car", "boat"])}
 
+        all_sub = subs.SqsSubscription(AllQueue)
         life_sub = subs.SqsSubscription(LifeQueue, filter_policy = lifepolicy)
         vehicle_sub = subs.SqsSubscription(VehicleQueue, filter_policy = valuepolicy)
         
         # Subscribe 3 queues and both filter policy to the topic "Insurance-Quote-Reqests" //
-        MyTopic.add_subscription(subs.SqsSubscription(AllQueue))
+        MyTopic.add_subscription(all_sub)
         MyTopic.add_subscription(life_sub)
         MyTopic.add_subscription(vehicle_sub)
         
-#metricNumberOfMessagesPublished
+    # Publish 2 Messages to the Topic //
+    def PublishMessage (self, MyTopic):
+        snsclient = boto3.client('sns')
+        Subject = { 'Insurance Quote Request #1' }
+        publishObject = { '2017 Volvo S60, Montreal' }
+        
+        response = snsclient.publish(
+            TopicArn=MyTopic,
+            Subject=Subject,
+            Message=publishObject,
+            MessageAttributes={
+                'insurance_type': {
+                    'DataType': 'String',
+                    'StringValue': 'car',
+                }
+            }
+        )
+        return response
+    
+    print(PublishMessage)
+    #Insurance Quote Requests #1 : 2017 Volvo S60, Montreal
+    #Insurance Quote Requests #2 : Male, 33 years old, Vancouver
+    #Insurance Quote Request #3 : Townhouse, 1500 sq ft, Toronto
+    #Select String in the Type field, Enter insurance_type in the Name field, Enter life/home in the Value field
 
 app = core.App()
 CreateSNSSQS(app, "CreateSNSSQS", env={'region': 'us-east-1'})
