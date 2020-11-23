@@ -1,4 +1,4 @@
-# Hands-on Lab: Filter-Messages-Published-to-Topics//
+# Hands-on Tutorial: Filter-Messages-Published-to-Topics//
 # Tutorial link: https://aws.amazon.com/tw/getting-started/hands-on/filter-messages-published-to-topics/?nc1=h_ls//
 
 from aws_cdk.core import App, Construct
@@ -8,7 +8,6 @@ from aws_cdk import (
     aws_sns_subscriptions as subs,
     core
     )
-import boto3
 
 
 class CreateSNSSQS(core.Stack):
@@ -59,13 +58,16 @@ class CreateSNSSQS(core.Stack):
         # There will be 3 message availble in ANS-All-Quotes //
         # 1 message availble in ANS-Life-Insurance-Quotes //
         # 1 message availble in ANS-Vehicle-Insurance-Quotes //
-        # Go to CloudFormation and delete your stack(CreateSNSSQS) to clean up your environment //
         
 app = core.App()
 CreateSNSSQS(app, "CreateSNSSQS", env={'region': 'us-east-1'})
 app.synth
 
 # Other tutorials:
-# Send an Email with Amazon SES //
+# Hands-on Tutorial: Send an Email with Amazon SES //
 # Tutorial link: https://aws.amazon.com/tw/getting-started/hands-on/send-an-email/?nc1=h_ls
-# GitHub link: 
+# GitHub link: none
+
+# Hands-on Tutorial: Send Messages Between Distributed Applications //
+# Tutorial Link: https://aws.amazon.com/getting-started/hands-on/send-messages-distributed-applications/
+# GitHub link: https://github.com/fungzhi/Hands-on-tutorials-marker/blob/Student-PCY/cloudprojectmarker/my-project/marking/send_messages_between_distributed_applications.py
