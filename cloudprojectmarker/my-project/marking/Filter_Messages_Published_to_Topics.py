@@ -1,5 +1,5 @@
 # Hands-on Lab: Filter-Messages-Published-to-Topics//
-# tutorial link: https://aws.amazon.com/tw/getting-started/hands-on/filter-messages-published-to-topics/?nc1=h_ls//
+# Tutorial link: https://aws.amazon.com/tw/getting-started/hands-on/filter-messages-published-to-topics/?nc1=h_ls//
 
 from aws_cdk.core import App, Construct
 from aws_cdk import (
@@ -51,31 +51,21 @@ class CreateSNSSQS(core.Stack):
         MyTopic.add_subscription(life_sub)
         MyTopic.add_subscription(vehicle_sub)
         
-    # Publish 2 Messages to the Topic //
-    def PublishMessage (self, MyTopic):
-        snsclient = boto3.client('sns')
-        Subject = { 'Insurance Quote Request #1' }
-        publishObject = { '2017 Volvo S60, Montreal' }
+        # Try to publish a message like the tutorial(Step 6) then you will succeed //
+        # ANS Insurance Quote Request #1 : 2017 Volvo S60, Montreal | MessageAttributes: Type:String Name:insurance_type Value:car //
+        # ANS Insurance Quote Request #2 : Male, 33 years old, Vancouver | MessageAttributes: Type:String Name:insurance_type Value:life //
+        # ANS Insurance Quote Request #3 : Townhouse, 1500 sq ft, Toronto | MessageAttributes: Type:String Name:insurance_type Value:home //
+        # You may check if there is any message were published in Message available or Action-->Sending and Receiving Messages //
+        # There will be 3 message availble in ANS-All-Quotes //
+        # 1 message availble in ANS-Life-Insurance-Quotes //
+        # 1 message availble in ANS-Vehicle-Insurance-Quotes //
+        # Go to CloudFormation and delete your stack(CreateSNSSQS) to clean up your environment //
         
-        response = snsclient.publish(
-            TopicArn=MyTopic,
-            Subject=Subject,
-            Message=publishObject,
-            MessageAttributes={
-                'insurance_type': {
-                    'DataType': 'String',
-                    'StringValue': 'car',
-                }
-            }
-        )
-        return response
-    
-    print(PublishMessage)
-    #Insurance Quote Requests #1 : 2017 Volvo S60, Montreal
-    #Insurance Quote Requests #2 : Male, 33 years old, Vancouver
-    #Insurance Quote Request #3 : Townhouse, 1500 sq ft, Toronto
-    #Select String in the Type field, Enter insurance_type in the Name field, Enter life/home in the Value field
-
 app = core.App()
 CreateSNSSQS(app, "CreateSNSSQS", env={'region': 'us-east-1'})
 app.synth
+
+# Other tutorials:
+# Send an Email with Amazon SES //
+# Tutorial link: https://aws.amazon.com/tw/getting-started/hands-on/send-an-email/?nc1=h_ls
+# GitHub link: 
