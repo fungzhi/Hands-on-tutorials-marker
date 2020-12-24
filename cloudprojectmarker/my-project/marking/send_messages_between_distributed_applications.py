@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 import logging
 
 logger = logging.getLogger(__name__)
-ClientError = boto3.exceptions(__name__)
+#ClientError = boto3.exceptions(__name__)
 
 
 class CreateQueue(core.Stack):
