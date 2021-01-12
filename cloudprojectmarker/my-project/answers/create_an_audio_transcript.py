@@ -1,5 +1,7 @@
-from aws_cdk import (aws_s3 as s3, core)
+# Hands-on Tutorial: Create an Audio Transcript
+# Tutorial link: https://aws.amazon.com/getting-started/hands-on/create-audio-transcript-transcribe/?nc1=h_ls
 
+from aws_cdk import (aws_s3 as s3, core)
 import time
 import boto3
 
@@ -17,6 +19,8 @@ app = core.App()
 S3Template(app, "S3Template", env={'region': 'us-east-1'})
 app.synth()
 
+
+#upload an S3 file
 s3_resource = boto3.resource('s3')
 s3_resource.meta.client.upload_file(
     Filename='answers/transcribe-sample.mp3',
@@ -24,7 +28,7 @@ s3_resource.meta.client.upload_file(
     Key='transcribe-sample.mp3')
 
 
-
+#upload S3 file to transcribe
 """     
 transcribe = boto3.client('transcribe')
 job_name = "sample-transcription-job"
