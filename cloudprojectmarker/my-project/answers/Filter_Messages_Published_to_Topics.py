@@ -1,6 +1,29 @@
 # Hands-on Tutorial: Filter-Messages-Published-to-Topics//
 # Tutorial link: https://aws.amazon.com/tw/getting-started/hands-on/filter-messages-published-to-topics/?nc1=h_ls//
 
+# This is the answer of Hands-on Tutorial: Filter-Messages-Published-to-Topics
+
+    # cd cloudprojectmarker/my-project
+
+    # npm install -g aws-cdk@latest
+    
+    # npm install -g aws-cdk@latest --force
+    
+    # python -m venv .env
+    
+    # source .env/bin/activate
+    
+    # pip install -r requirements.txt
+    
+    # python -m pip install aws-cdk.aws-sns-subscriptions aws-cdk.aws-sns aws-cdk.aws-sqs
+    
+    # cdk ls   (output: CreateSNSSQS)
+    
+    # cdk deploy CreateSNSSQS   (go check the CoudFormation and there will be a stack called "CreateSNSSQS")
+    
+    # Answer deployed!
+
+
 from aws_cdk.core import App, Construct
 from aws_cdk import (
     aws_sqs as sqs,
@@ -59,9 +82,8 @@ class CreateSNSSQS(core.Stack):
         # 1 message availble in ANS-Life-Insurance-Quotes //
         # 1 message availble in ANS-Vehicle-Insurance-Quotes //
         
-app = core.App()
-CreateSNSSQS(app, "CreateSNSSQS", env={'region': 'us-east-1'})
-app.synth
+        # You may delete your stack(CreateSNSSQS) to clean up your environment
+        
 
 # Other tutorials:
 # Hands-on Tutorial: Send an Email with Amazon SES //

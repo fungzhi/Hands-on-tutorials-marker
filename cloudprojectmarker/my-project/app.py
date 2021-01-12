@@ -2,11 +2,11 @@
 
 from aws_cdk import core
 
-from my_project.my_project_stack import MyProjectStack
-from marking.Filter_Messages_Published_to_Topics import CreateSNSSQS
+from answers.Filter_Messages_Published_to_Topics import CreateSNSSQS
+from answers.Create_Public_Subnet import CreatePublicSubnet
 
 app = core.App()
-MyProjectStack(app, "my-project")
-CreateSNSSQS(app, "marking")
+CreateSNSSQS(app, "CreateSNSSQS", env={'region': 'us-east-1'})
+CreatePublicSubnet(app, "CreatePublicSubnet", env={'region': 'us-east-1'})
 
 app.synth()
