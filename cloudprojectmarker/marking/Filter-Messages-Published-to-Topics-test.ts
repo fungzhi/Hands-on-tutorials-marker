@@ -87,32 +87,4 @@ describe("SQS and SNS", () => {
     ).to.be.exist;
   }); // 1 mark //
 
-
-  //Part 4: Set filter policies to the SNS subscriptions (Vehicle-Insurance-Quotes and Life-Insurance-Quotes) //
-  it("should set filter policies to the SNS subscriptions. ", async () => {
-    const LifeQueue = await sqs
-      .listQueues({ QueueNamePrefix: "Life-Insurance-Quotes" })
-      .promise();
-      
-    const topics: SNS.Types.ListTopicsResponse = await sns
-      .listTopics()
-      .promise();
-      
-      
-    const TopicArn = topics!.Topics!.find((c) =>
-      c.TopicArn!.endsWith("Insurance-Quote-Reqests")
-    )!.TopicArn;
-
-    const subscriptions = await sns
-      .listSubscriptionsByTopic({ TopicArn: TopicArn! })
-      .promise();
-    
-    const SubscriptionArn = 
-
-    const LifePolicy = LifeQueue.setQueueAttributes(Policy)
-    
-    const LifeQueuePolicy =
-    
-    expect()
-  });
 });
