@@ -4,8 +4,8 @@ import "mocha";
 import * as AWS from "aws-sdk";
 import { EC2 } from "aws-sdk";
 
-describe("VPC", () => {
-    const ec2: AWS.EC2 = new AWS.EC2();
+describe("SQS and SNS", () => {
+  const ec2: AWS.EC2 = new AWS.EC2();
   
   
     it("should be with cidr 10.0.0.0/16.", async () => {
