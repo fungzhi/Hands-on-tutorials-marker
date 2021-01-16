@@ -7,7 +7,7 @@ import { EC2 } from "aws-sdk";
 describe("SQS and SNS", () => {
   const ec2: AWS.EC2 = new AWS.EC2();
   
-  
+    // Part 1: Create a VPC called "Tutorial VPC" with cidr "10.0.0.0/16" (total 1 mark) //
     it("should be with cidr 10.0.0.0/16.", async () => {
         let params: EC2.Types.DescribeVpcsRequest = {
           Filters: [{ Name: "tag:Name", Values: ["Tutoial VPC"] }],
@@ -22,7 +22,7 @@ describe("SQS and SNS", () => {
         expect(vpcs.Vpcs![0].CidrBlock).to.equal("10.0.0.0/16");
     });
 
-
+    // Part 2: Create two public subnet with cidr "10.0.0.0/24" and "10.0.1.0/24" (total 1 mark)
     it("should be with 2 subnets with proper Cidr address.", async () => {
         let params: EC2.Types.DescribeVpcsRequest = {
           Filters: [{ Name: "tag:Name", Values: ["Tutoial VPC"] }],
@@ -54,4 +54,6 @@ describe("SQS and SNS", () => {
           subnets.Subnets!.map((c) => c.CidrBlock).sort()
         );
     });
+    // End Lab //
+    // Check the answer with cdk-answer/answers/Create_Public_Subnet.py //
 });

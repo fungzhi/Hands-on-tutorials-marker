@@ -17,6 +17,9 @@ class S3Bucket(core.Stack):
                              bucket_name='yourbucket',
                              )
 
+# After deploying upper codes
+# Please delete """ """ to available the following codes
+# Now deploy "S3Bucket" again
 """
 #upload an S3 file
 s3_resource = boto3.resource('s3')

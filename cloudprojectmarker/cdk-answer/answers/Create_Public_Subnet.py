@@ -1,12 +1,12 @@
 # This is the answer of Original Tutorial: Create VPC
 
-    # cd cloudprojectmarker/my-project
+    # cd cloudprojectmarker/cdk-answer
     
     # npm install -g aws-cdk@latest
     
     # npm install -g aws-cdk@latest --force
     
-    # python -m venv .env
+    # python3 -m venv .env
     
     # source .env/bin/activate
     
@@ -35,7 +35,7 @@ class CreatePublicSubnet(core.Stack):
         # Create an Amazon VPC: "ANS-VPC" //
         MyVPC = ec2.Vpc(
             self, "ANS-VPC", 
-            cidr="10.0.0.0/21", 
+            cidr="10.0.0.0/16", 
             # Configures the maximum number of availability zones as 2 //
             max_azs=2,
             # No nat gateway //

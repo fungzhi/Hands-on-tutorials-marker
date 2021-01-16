@@ -3,7 +3,7 @@
 
 # This is the answer of Hands-on Tutorial: Filter-Messages-Published-to-Topics
 
-    # cd cloudprojectmarker/my-project
+    # cd cloudprojectmarker/cdk-answer
 
     # npm install -g aws-cdk@latest
     
