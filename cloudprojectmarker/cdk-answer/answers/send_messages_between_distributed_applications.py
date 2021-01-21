@@ -7,7 +7,6 @@ from botocore.exceptions import ClientError
 import logging
 
 logger = logging.getLogger(__name__)
-ClientError = boto3.exceptions(__name__)
 
 
 class CreateQueue(core.Stack):
@@ -66,43 +65,3 @@ class SendMessages(core.Stack):
             raise error
         else:
             return response
-
-"""
-class DeleteMessages(core.Stack):
-    # Retrieve and Delete a Message
-    def receive_messages(self, queue, max_number, wait_time):
-        try:
-            messages = queue.receive_messages(
-                MessageAttributeNames=['Order-Type'],
-                MaxNumberOfMessages=max_number,
-                WaitTimeSeconds=wait_time
-            )
-            for msg in messages:
-                logger.info("Received message: %s: %s", msg.message_id, msg.body)
-        except ClientError as error:
-            logger.exception("Couldn't receive messages from queue: %s", queue)
-            raise error
-        else:
-            return messages
-
-
-    def delete_message(self, message):
-        try:
-            message.delete()
-            logger.info("Deleted message: %s", message.message_id)
-        except ClientError as error:
-            logger.exception("Couldn't delete message: %s", message.message_id)
-            raise error
-
-
-class DeleteSQS(core.Stack):
-    # Delete the Queue
-    def delete_queue(self, queue):
-        try:
-            delete_message(message=delete)
-            queue.delete(queue_name='Orders')
-            logger.info("Deleted Queue: %s", queue.queue_name)
-        except ClientError as error:
-            logger.exception("Couldn't delete queue: %s", queue.queue_name)
-            raise error
-"""

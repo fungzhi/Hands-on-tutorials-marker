@@ -7,7 +7,7 @@ import time
 import boto3
 
 
-class IAM(core.Stack):
+class CreateIAM(core.Stack):
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
         

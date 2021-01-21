@@ -1,0 +1,97 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "SqsMessages": {
+        "id": "SqsMessages",
+        "path": "SqsMessages"
+      },
+      "DynamodbTable": {
+        "id": "DynamodbTable",
+        "path": "DynamodbTable"
+      },
+      "S3StaticWebsite": {
+        "id": "S3StaticWebsite",
+        "path": "S3StaticWebsite",
+        "children": {
+          "S3StaticWebsite_static-website-bucket": {
+            "id": "S3StaticWebsite_static-website-bucket",
+            "path": "S3StaticWebsite/S3StaticWebsite_static-website-bucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "S3StaticWebsite/S3StaticWebsite_static-website-bucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "cdk-s3-static-website",
+                    "websiteConfiguration": {
+                      "indexDocument": "hello-world.html",
+                      "errorDocument": "error.html"
+                    }
+                  }
+                }
+              },
+              "Notifications": {
+                "id": "Notifications",
+                "path": "S3StaticWebsite/S3StaticWebsite_static-website-bucket/Notifications"
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "S3StaticWebsite/S3StaticWebsite_static-website-bucket/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "S3StaticWebsite/S3StaticWebsite_static-website-bucket/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "S3StaticWebsitestaticwebsitebucketEDC094FF"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "s3:GetObject",
+                              "Effect": "Allow",
+                              "Principal": "*",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "S3StaticWebsitestaticwebsitebucketEDC094FF",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "/*"
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateIAM": {
+        "id": "CreateIAM",
+        "path": "CreateIAM"
+      }
+    }
+  }
+}
