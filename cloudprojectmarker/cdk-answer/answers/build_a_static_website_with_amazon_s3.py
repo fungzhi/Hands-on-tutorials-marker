@@ -3,26 +3,21 @@
 
 from aws_cdk import core
 from aws_cdk import (core, aws_s3 as s3)
+import boto3
 
 
 class StaticWebsiteBucket(core.Stack):
-
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
-        super().__init__(scope, id, **kwargs)
+    def _init_(self, app: core.App, id: str, **kwargs) -> None:
+        super()._init_(app, id)
 
         # Create Static Website S3 Bucket
-        bucket = s3.Bucket(self, id + "_static-website-bucket",
-            bucket_name= ('cdk-s3-static-website'),
-            website_index_document= 'hello-world.html',
-            website_error_document= 'error.html',
-            public_read_access= True,
-            removal_policy= core.RemovalPolicy.DESTROY)
-
-'''        
-        # Deploy site contents to S3 bucket    
-        folder = s3.BucketDeployment(self, 'DeployWithInvalidation',
-            sources = s3.Source.asset('./site-contents'),
-            destinationBucket = ('cdk-s3-static-website'),
-            distributionPaths = ('/*')
-        )
-'''
+        myBucket = s3.Bucket(self, 'static-website-bucket', 
+        bucket_name='cdk-s3-static-website1', 
+        public_read_access= True, 
+        removal_policy= core.RemovalPolicy.DESTROY)
+        
+        # Upload AWSEducateS3 items to S3 bucket
+        s3_resource = boto3.resource('s3')
+        s3.Bucket('cdk-s3-static-website').upload_file(
+            ['answers/AWSEducateS3/index.html', 'index.html'], 
+            ['answers/AWSEducateS3/bitbangers.png', 'bitbangers.png'])

@@ -1,0 +1,75 @@
+{
+  "version": "5.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "SqsMessages": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/us-east-1",
+      "properties": {
+        "templateFile": "SqsMessages.template.json"
+      }
+    },
+    "DynamodbTable": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/us-east-1",
+      "properties": {
+        "templateFile": "DynamodbTable.template.json"
+      }
+    },
+    "S3StaticWebsite": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/us-east-1",
+      "properties": {
+        "templateFile": "S3StaticWebsite.template.json"
+      }
+    },
+    "CreateIAM": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/us-east-1",
+      "properties": {
+        "templateFile": "CreateIAM.template.json"
+      }
+    },
+    "S3Bucket": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/us-east-1",
+      "properties": {
+        "templateFile": "S3Bucket.template.json"
+      }
+    }
+  },
+  "runtime": {
+    "libraries": {
+      "@aws-cdk/cloud-assembly-schema": "1.63.0",
+      "@aws-cdk/cx-api": "1.63.0",
+      "@aws-cdk/core": "1.63.0",
+      "@aws-cdk/region-info": "1.72.0",
+      "@aws-cdk/aws-iam": "1.72.0",
+      "@aws-cdk/aws-cloudwatch": "1.72.0",
+      "@aws-cdk/aws-kms": "1.72.0",
+      "@aws-cdk/aws-sqs": "1.72.0",
+      "@aws-cdk/aws-autoscaling-common": "1.72.0",
+      "@aws-cdk/aws-applicationautoscaling": "1.72.0",
+      "@aws-cdk/aws-codeguruprofiler": "1.72.0",
+      "@aws-cdk/assets": "1.72.0",
+      "@aws-cdk/aws-events": "1.72.0",
+      "@aws-cdk/aws-s3": "1.72.0",
+      "@aws-cdk/aws-s3-assets": "1.72.0",
+      "@aws-cdk/aws-logs": "1.72.0",
+      "@aws-cdk/aws-ssm": "1.72.0",
+      "@aws-cdk/aws-ec2": "1.72.0",
+      "@aws-cdk/aws-efs": "1.72.0",
+      "@aws-cdk/aws-lambda": "1.72.0",
+      "@aws-cdk/aws-sns": "1.72.0",
+      "@aws-cdk/aws-cloudformation": "1.72.0",
+      "@aws-cdk/custom-resources": "1.72.0",
+      "@aws-cdk/aws-dynamodb": "1.72.0",
+      "jsii-runtime": "Python/3.6.12"
+    }
+  }
+}

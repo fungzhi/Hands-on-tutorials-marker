@@ -1,0 +1,33 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "SqsMessages": {
+        "id": "SqsMessages",
+        "path": "SqsMessages"
+      },
+      "DynamodbTable": {
+        "id": "DynamodbTable",
+        "path": "DynamodbTable"
+      },
+      "S3StaticWebsite": {
+        "id": "S3StaticWebsite",
+        "path": "S3StaticWebsite"
+      },
+      "CreateIAM": {
+        "id": "CreateIAM",
+        "path": "CreateIAM"
+      },
+      "S3Bucket": {
+        "id": "S3Bucket",
+        "path": "S3Bucket"
+      }
+    }
+  }
+}

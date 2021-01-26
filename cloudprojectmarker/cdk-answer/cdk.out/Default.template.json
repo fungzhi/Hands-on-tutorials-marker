@@ -1,0 +1,50 @@
+{
+  "Resources": {
+    "staticwebsitebucket7EF1E06C": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "cdk-s3-static-website"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "Default/static-website-bucket/Resource"
+      }
+    },
+    "staticwebsitebucketPolicy34945549": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "staticwebsitebucket7EF1E06C"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "staticwebsitebucket7EF1E06C",
+                        "Arn"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "Default/static-website-bucket/Policy/Resource"
+      }
+    }
+  }
+}
