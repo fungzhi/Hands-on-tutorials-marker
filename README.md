@@ -2,15 +2,19 @@
 
 ## Deploy the grader lambda.
 
-git clone https://github.com/fungzhi/lab-marker.git
+git clone https://github.com/fungzhi/Hands-on-tutorials-marker.git
 
 Open samconfig.toml and change the bucket name in us-east-1.
 
 s3_bucket = "XXXXXXX"
 
-Run 2 commands
+Run 4 commands
 
 cd Hands-on-tutorials-marker/
+
+chmod +x build-layer.sh
+
+chmod +x deployment.sh
 
 ./deployment.sh
 
