@@ -86,5 +86,29 @@ describe("SQS and SNS", () => {
       "Vehicle-Insurance-Quotes Subscription exists."
     ).to.be.exist;
   }); // 1 mark //
+  
+  //Part 4: Add filter policy to sqs query (total 1 mark) //
+  it("should have 1 filter policy added to Life-Insurance-Quotes. ", async () => {
+    const topics: SNS.Types.ListTopicsResponse = await sns
+      .listTopics()
+      .promise();
+
+    const TopicArn = topics!.Topics!.find((c) =>
+      c.TopicArn!.endsWith("Insurance-Quote-Reqests")
+    )!.TopicArn;
+    
+    
+    
+  });
+  
+  it("should have 1 filter policy added to Vehicle-Insurance-Quotes. ", async () => {
+    const topics: SNS.Types.ListTopicsResponse = await sns
+      .listTopics()
+      .promise();
+
+    const TopicArn = topics!.Topics!.find((c) =>
+      c.TopicArn!.endsWith("Insurance-Quote-Reqests")
+    )!.TopicArn;
+  });
 
 });
