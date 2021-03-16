@@ -45,8 +45,8 @@ describe("DynamoDB", () => {
                     TableStatus: "CREATING"
                 }
             }
-        })
-    })
+        });
+    });
 
     it("should have input 1 item. ", async () => {
         const MusicData = await DynamoDB
@@ -65,8 +65,8 @@ describe("DynamoDB", () => {
                 ReturnConsumedCapacity: "TOTAL",
                 TableName: "Music"
             }
-        })
-    })
+        });
+    });
 
     it("should have input items. ", async () => {
         const MusicUpdateData = await DynamoDB
@@ -91,6 +91,6 @@ describe("DynamoDB", () => {
                 ReturnConsumedCapacity: "TOTAL",
                 TableName: "Music"
             }
-        })
-    })
+        });
+    });
 });

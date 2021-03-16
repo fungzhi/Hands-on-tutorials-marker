@@ -15,7 +15,7 @@ describe("SQS", () => {
             .listQueues({QueueNamePrefix: "Orders"})
             .promise();
         expect(1, "Orders exist.").to.equal(OrdersQueue.QueueUrls!.length);
-    })
+    });
 
     it("should send a message", async () => {
         const OrdersMessage = {
@@ -27,5 +27,5 @@ describe("SQS", () => {
                 Value: "Online",
             }
         }
-    })
+    });
 });
