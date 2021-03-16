@@ -11,7 +11,7 @@ describe("DynamoDB", () => {
     const dynamodb: AWS.DynamoDB = new AWS.DynamoDB();
 
     it("should have 1 table. ", async () => {
-        const MusicTable = await DynamoDB
+        const MusicTable = await dynamodb
         DynamoDB.createTable(MusicTable, function (err, data) {
             if (err) console.log(err, err.stack);
             else console.log(data);
@@ -49,7 +49,7 @@ describe("DynamoDB", () => {
     });
 
     it("should have input 1 item. ", async () => {
-        const MusicData = await DynamoDB
+        const MusicData = await dynamodb
         DynamoDB.putItem(MusicData, function (err, data) {
             if (err) console.log(err, err.stack);
             else console.log(data);
@@ -69,7 +69,7 @@ describe("DynamoDB", () => {
     });
 
     it("should have input items. ", async () => {
-        const MusicUpdateData = await DynamoDB
+        const MusicUpdateData = await dynamodb
         DynamoDB.putItem(MusicUpdateData, function (err, data) {
             if (err) console.log(err, err.stack);
             else console.log(data);

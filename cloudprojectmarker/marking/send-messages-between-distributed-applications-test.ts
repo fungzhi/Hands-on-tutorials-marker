@@ -11,7 +11,7 @@ describe("SQS", () => {
     const sqs: AWS.SQS = new AWS.SQS();
 
     it("should have 1 SQS queues. ", async () => {
-        const OrdersQueue = await SQS
+        const OrdersQueue = await sqs
             .listQueues({QueueNamePrefix: "Orders"})
             .promise();
         expect(1, "Orders exist.").to.equal(OrdersQueue.QueueUrls!.length);
