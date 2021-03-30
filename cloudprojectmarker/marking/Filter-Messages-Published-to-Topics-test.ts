@@ -7,7 +7,7 @@ import "mocha";
 import * as AWS from "aws-sdk";
 import { SQS, SNS } from "aws-sdk";
 
-describe("SQS and SNS", () => {
+describe("Filter Messages Published to Topics", () => {
   const sqs: AWS.SQS = new AWS.SQS();
   const sns: AWS.SNS = new AWS.SNS();
 

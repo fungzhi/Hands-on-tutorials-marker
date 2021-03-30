@@ -4,7 +4,7 @@ import "mocha";
 import * as AWS from "aws-sdk";
 import { EC2 } from "aws-sdk";
 
-describe("SQS and SNS", () => {
+describe("Creating a Virtual Private Cloud Activity", () => {
   const ec2: AWS.EC2 = new AWS.EC2();
   
     // Part 1: Create a VPC called "MyVPC" with cidr "10.0.0.0/16" (total 1 mark) //
