@@ -3,7 +3,7 @@ import "mocha";
 import * as AWS from "aws-sdk";
 import { Lambda,CloudWatchLogs } from "aws-sdk";
 
-describe("Lambda", () => {
+describe("Simple Lambda Function", () => {
   const lambda: AWS.Lambda = new AWS.Lambda();
   const cloudWatchLogs: AWS.CloudWatchLogs = new AWS.CloudWatchLogs();
 
@@ -28,7 +28,7 @@ describe("Lambda", () => {
     //  You may need to replace the current test event code:
     // https://raw.githubusercontent.com/linuxacademy/content-lambda-deep-dive/master/section_2/live_act_1/test_event.json
     
-  });
+  }); // 1 mark //
 
   it("should have HelloWorld log group", async () => {
     const HelloWorldlogGroups = await cloudWatchLogs
@@ -40,6 +40,6 @@ describe("Lambda", () => {
   
     expect(2, "One log group").to.equal(HelloWorldlogGroups.logGroups![0].LogGroup);
 
-  });
+  }); // 1 mark //
 
 });  

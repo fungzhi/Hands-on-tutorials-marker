@@ -6,7 +6,7 @@ import "mocha";
 import * as AWS from "aws-sdk";
 AWS.config.update({ region: 'us-east-1' });
 
-describe("DynamoDB", () => {
+describe("Create and Query a NoSQL Table", () => {
     const dynamodb: AWS.DynamoDB = new AWS.DynamoDB();
 
         // Step 1: Create a new NoSQL table with name "Music"
@@ -15,7 +15,7 @@ describe("DynamoDB", () => {
             .listTables({ExclusiveStartTableName:"Music"})
             .promise();
         expect(MusicTable,"Music Table exist.").to.be.exist;
-    });
+    }); // 1 mark //
     
     // Step 2: Add data to the NoSQL Table in "Music"
     it("should have data records in Music table: Artist-No One You Know. ", async () => {
@@ -33,7 +33,7 @@ describe("DynamoDB", () => {
                 TableName: "Music"
             });
         expect(NOYKitems,"Input 3 records of No One You Know artist exist.").to.be.exist;
-    });
+    }); // 1 mark //
     
     it("should have data records in Music table: Artist-The Acme Band. ", async () => {
 
@@ -51,5 +51,5 @@ describe("DynamoDB", () => {
                 TableName: "Music"
             });
         expect(TABitems,"Input 2 records of The Acme Band artist exist.").to.be.exist;
-    });
+    }); // 1 mark //
 });
