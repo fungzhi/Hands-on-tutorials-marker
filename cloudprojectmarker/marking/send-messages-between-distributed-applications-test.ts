@@ -16,7 +16,7 @@ describe("Send Messages Between Distributed Applications", () => {
             .listQueues({QueueNamePrefix: "Orders"})
             .promise();
         expect(2, "Orders queue exist.").to.equal(OrdersQueue.QueueUrls!.length);
-    });
+    }); // 1 mark //
 
     // Step 2: Send message to the Queue in "Orders" 
     it("should send a message", async () => {
@@ -34,5 +34,5 @@ describe("Send Messages Between Distributed Applications", () => {
                 }
             )
         expect(3,"Send message to Orders queue exist.").to.equal(OrdersMessage);
-    });
+    }); // 1 mark //
 });
