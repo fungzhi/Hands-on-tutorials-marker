@@ -88,27 +88,39 @@ describe("Filter Messages Published to Topics", () => {
   }); // 1 mark //
   
   //Part 4: Add filter policy to sqs query (total 1 mark) //
-  it("should have 1 filter policy added to Life-Insurance-Quotes. ", async () => {
-    const topics: SNS.Types.ListTopicsResponse = await sns
-      .listTopics()
+  it("should have 1 filter policy(car, boat) added to Vehicle-Insurance-Quotes. ", async () => {
+    const VehicleQueue = await sqs
+      .listQueues({ QueueNamePrefix: "Vehicle-Insurance-Quotes" })
       .promise();
+    expect(1, "Vehicle-Insurance-Quotes exist.").to.equal(
+      VehicleQueue.QueueUrls!.length
+    );
+    //{"insurance_type": ["car", "boat"]}
+    const VehiclePolicy = await sqs
+        .getQueueAttributes({
+            QueueUrl : VehicleQueue.QueueUrls,
+            AttributeNames: ["Policy"],
+        }).equals('{"insurance_type": ["car", "boat"]}')
+    
+    expect(1, "Vehicle-Insurance-Quotes's Policy exist. ").to.equal(VehicleQueue.VehiclePolicy);  
+  }); // 1 mark //
 
-    const TopicArn = topics!.Topics!.find((c) =>
-      c.TopicArn!.endsWith("Insurance-Quote-Reqests")
-    )!.TopicArn;
-    
-    
-    
-  });
   
-  it("should have 1 filter policy added to Vehicle-Insurance-Quotes. ", async () => {
-    const topics: SNS.Types.ListTopicsResponse = await sns
-      .listTopics()
+  it("should have 1 filter policy(life) added to Vehicle-Insurance-Quotes. ", async () => {
+    const LifeQueue = await sqs
+      .listQueues({ QueueNamePrefix: "Vehicle-Insurance-Quotes" })
       .promise();
-
-    const TopicArn = topics!.Topics!.find((c) =>
-      c.TopicArn!.endsWith("Insurance-Quote-Reqests")
-    )!.TopicArn;
-  });
+    expect(1, "Vehicle-Insurance-Quotes exist.").to.equal(
+      LifeQueue.QueueUrls!.length
+    );
+    //{"insurance_type": ["life"]}
+    const LifePolicy = await sqs
+        .getQueueAttributes({
+            QueueUrl : LifeQueue.QueueUrls,
+            AttributeNames: ["Policy"],
+        }).equals('{"insurance_type": ["life"]}')
+    
+    expect(1, "Vehicle-Insurance-Quotes's Policy exist. ").to.equal(LifePolicy);  
+  }); // 1 mark //
 
 });
