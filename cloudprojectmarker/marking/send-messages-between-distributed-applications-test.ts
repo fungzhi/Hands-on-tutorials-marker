@@ -7,25 +7,32 @@ import * as AWS from "aws-sdk";
 import { SQS } from "aws-sdk";
 AWS.config.update({region: 'us-east-1'});
 
-describe("SQS", () => {
+describe("Send Messages Between Distributed Applications", () => {
     const sqs: AWS.SQS = new AWS.SQS();
 
-    it("should have 1 SQS queues. ", async () => {
+    // Step 1: Create a new queue with name "Orders"
+    it("should have 1 SQS queue: Orders. ", async () => {
         const OrdersQueue = await sqs
             .listQueues({QueueNamePrefix: "Orders"})
             .promise();
-        expect(1, "Orders exist.").to.equal(OrdersQueue.QueueUrls!.length);
+        expect(2, "Orders queue exist.").to.equal(OrdersQueue.QueueUrls!.length);
     });
 
+    // Step 2: Send message to the Queue in "Orders" 
     it("should send a message", async () => {
-        const OrdersMessage = {
-            MessageBody: {Type: String,
-                Value: "1 x Widget @ $29.99 USD \n 2 x Widget Cables @ $4.99"
-            },
-            MeassgeAttributes: {Type: String, 
-                Name: "Order-Type", 
-                Value: "Online",
-            }
-        }
+        const OrdersMessage = await sqs
+            .sendMessage(
+                {
+                    MessageBody:"1 x Widget @ $29.99 USD \n 2 x Widget Cables @ $4.99",
+                    QueueUrl: "Orders",
+                    MessageAttributes:{
+                        "Order-Type":{
+                            DataType:"Order-Type",
+                            StringValue:"Online"
+                        }
+                    }
+                }
+            )
+        expect(3,"Send message to Orders queue exist.").to.equal(OrdersMessage);
     });
 });
