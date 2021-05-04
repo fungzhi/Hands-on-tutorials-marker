@@ -1,3 +1,6 @@
+//Hands-on Lab: Creating a Virtual Private Cloud Activity
+//Tutorial Source: AWS Career Pathways: Hands-On Activities and Guides
+
 import { expect } from "chai";
 // if you used the '@types/mocha' method to install mocha type definitions, uncomment the following line
 import "mocha";
@@ -20,7 +23,7 @@ describe("Creating a Virtual Private Cloud Activity", () => {
         // console.log(vpcs.Vpcs![0].CidrBlock);
     
         expect(vpcs.Vpcs![0].CidrBlock).to.equal("10.0.0.0/16");
-    });
+    }); // 1 mark //
 
     // Part 2: Create a public subnet with cidr "10.0.1.0/24" and a private subnet with cidr "10.0.2.0/24" (total 1 mark)
     it("should be with 2 subnets with proper Cidr address.", async () => {
@@ -53,7 +56,7 @@ describe("Creating a Virtual Private Cloud Activity", () => {
         expect(expectedCidrAddresses).to.deep.equal(
           subnets.Subnets!.map((c) => c.CidrBlock).sort()
         );
-    });
+    }); // 1 mark //
     
     // Part 3: Create two  (total 1 mark) //
     it("should be with 3 route tables for 2 subnets plus one local route only main route table.", async () => {
@@ -89,7 +92,8 @@ describe("Creating a Virtual Private Cloud Activity", () => {
       expect(1, "1 route tables with public route.").to.equal(
         numberOfInternetGatawayRoutes
       );
-    });
+    }); // 1 mark //
+    
     // End Lab //
     // Check the answer with git clone https://github.com/fungzhi/Hands-on-tutorials-answer.git //
     // Hands-on-tutorials-answer/answers/LaunchingAndConfiguringAnAmazonEC2InstanceActivityGuide.py //
