@@ -6,7 +6,7 @@ import { EC2 } from "aws-sdk";
 
 
 
-describe("Security Group", () => {
+describe("Create Security Group", () => {
     let mySg: EC2.SecurityGroup;
     const common = new Common();
     before(async () => {

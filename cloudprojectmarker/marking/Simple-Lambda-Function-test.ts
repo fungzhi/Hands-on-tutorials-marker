@@ -8,7 +8,7 @@ import * as AWS from "aws-sdk";
 import { Lambda } from "aws-sdk";
 import { CloudWatchLogs } from "aws-sdk";
 
-describe("Lambda", () => {
+describe("Simple Lambda Function", () => {
   const lambda: AWS.Lambda = new AWS.Lambda();
   const cloudWatchLogs: AWS.CloudWatchLogs = new AWS.CloudWatchLogs();
 
