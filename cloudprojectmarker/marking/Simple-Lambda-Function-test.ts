@@ -1,13 +1,18 @@
+// A Cloud Guru Hand on lab: Creating a Simple AWS Lambda Function
+ 
+// https://learn.acloud.guru/handson/f2b58b6b-2a05-435a-8746-ca1ff25b9773
+
 import { expect } from "chai";
 import "mocha";
 import * as AWS from "aws-sdk";
-import { Lambda,CloudWatchLogs } from "aws-sdk";
+import { Lambda } from "aws-sdk";
+import { CloudWatchLogs } from "aws-sdk";
 
-describe("Simple Lambda Function", () => {
+describe("Lambda", () => {
   const lambda: AWS.Lambda = new AWS.Lambda();
   const cloudWatchLogs: AWS.CloudWatchLogs = new AWS.CloudWatchLogs();
 
-  
+  // Step 1: Create a Lambda Function
   it("should have one HelloWorld Lambda Function.", async () => {
     // Download your lambda function code
     //https://raw.githubusercontent.com/linuxacademy/content-lambda-deep-dive/master/section_2/live_act_1/lambda_function.py
@@ -15,21 +20,20 @@ describe("Simple Lambda Function", () => {
       .getFunction({ FunctionName: "HelloWorld" })
       .promise();
 
-    // console.log(lambdaFunction.Configuration);
-
     let expected = {
       FunctionName: "HelloWorld",
       Runtime: "python3.8",
       Handler: "lambda_function.lambda_handler",
     };
 
-    expect(2, "One Lambda Function").to.eq(lambdaFunction.Functions!.length);
+    expect(1, "One Lambda Function").to.eq(lambdaFunction.Functions!.length);
 
-    //  You may need to replace the current test event code:
+    //  Replace the current test event code:
     // https://raw.githubusercontent.com/linuxacademy/content-lambda-deep-dive/master/section_2/live_act_1/test_event.json
     
-  }); // 1 mark //
+  });
 
+  // Step 2: Check CloudWatch Log Group
   it("should have HelloWorld log group", async () => {
     const HelloWorldlogGroups = await cloudWatchLogs
       .describeLogGroups({
@@ -37,9 +41,8 @@ describe("Simple Lambda Function", () => {
       })
       .promise();
 
-  
-    expect(2, "One log group").to.equal(HelloWorldlogGroups.logGroups![0].LogGroup);
+    expect(1, "One log group").to.equal(HelloWorldlogGroups.logGroups![0].LogGroup);
 
-  }); // 1 mark //
+  });
 
 });  
