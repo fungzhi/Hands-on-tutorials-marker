@@ -15,7 +15,7 @@ describe("Send Messages Between Distributed Applications", () => {
         const OrdersQueue = await sqs
             .listQueues({QueueNamePrefix: "Orders"})
             .promise();
-        expect(2, "Orders queue exist.").to.equal(OrdersQueue.QueueUrls!.length);
+        expect(1, "Orders queue exist.").to.equal(OrdersQueue.QueueUrls!.length);
     }); // 1 mark //
 
     // Step 2: Send message to the Queue in "Orders" 
@@ -33,6 +33,6 @@ describe("Send Messages Between Distributed Applications", () => {
                     }
                 }
             )
-        expect(3,"Send message to Orders queue exist.").to.equal(OrdersMessage);
+        expect(OrdersMessage,"Send message to Orders queue exist.").to.be.exist;
     }); // 1 mark //
 });
